@@ -145,6 +145,97 @@ int employee_getSueldo(Employee* this,int* sueldo)
     }
 
     return ret;
+};
+void  employee_showEmployee(Employee* this)
+{
+    if(this != NULL )
+    {
+        printf ( " %4d  %s  %d  %d \n\n " , this->id , this->nombre , this->horasTrabajadas , this->sueldo);
+    }
 }
+
+void  employee_showEmployees(Employee* this)
+{
+    Employee* emp;
+
+    if(this != NULL )
+    {
+        for(int i=0; i<ll_len(this);i++)
+        {
+            emp = (Employee*)ll_get(this, i);
+            employee_showEmployee(emp);
+        }
+    }
+    else
+    {
+        printf("No hay empleados cargados\n\n");
+        system("pause");
+    }
+
+}
+
+int employee_sortByName(void* empleadoA, void* empleadoB)
+{
+    int ret;
+    ret = strcmp(((Employee*)empleadoA)->nombre, ((Employee*)empleadoB)->nombre);
+    return ret;
+}
+
+
+int employee_sortById(void* empleadoA, void* empleadoB)
+{
+    int ret;
+    if(((Employee*)empleadoA)->id > ((Employee*)empleadoB)->id)
+    {
+        ret = 1;
+    } if(((Employee*)empleadoA)->id < ((Employee*)empleadoB)->id)
+    {
+        ret = -1;
+    }
+    else
+    {
+        ret = 0;
+    }
+    return ret;
+
+}
+
+int employee_sortByHsTrabajadas(void* empleadoA, void* empleadoB)
+{
+    int ret;
+    if(((Employee*)empleadoA)->horasTrabajadas > ((Employee*)empleadoB)->horasTrabajadas)
+    {
+        ret = 1;
+    }
+    else if(((Employee*)empleadoA)->horasTrabajadas < ((Employee*)empleadoB)->horasTrabajadas)
+    {
+        ret = -1;
+    }
+    else
+    {
+        ret = 0;
+    }
+    return ret;
+}
+
+int employee_sortBySueldo(void* empleadoA, void* empleadoB)
+{
+    int ret;
+    if(((Employee*)empleadoA)->sueldo > ((Employee*)empleadoB)->sueldo)
+    {
+        ret = 1;
+    }
+    else if(((Employee*)empleadoA)->sueldo < ((Employee*)empleadoB)->sueldo)
+    {
+        ret = -1;
+    }
+    else
+    {
+        ret = 0;
+    }
+    return ret;
+};
+
+
 
 

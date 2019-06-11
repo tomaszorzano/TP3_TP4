@@ -40,7 +40,7 @@ int parser_EmployeeFromText(FILE* pFile, LinkedList* pArrayListEmployee)
             else
             {
                 Employee* emp = employee_new();
-                emp->id = atoi(id);
+                emp->id = atoi(idStr);
                 strcpy(emp->nombre,nombreStr);
                 emp->horasTrabajadas = atoi(horasTrabajadasStr);
                 emp->sueldo = atoi(sueldoStr);
@@ -49,7 +49,7 @@ int parser_EmployeeFromText(FILE* pFile, LinkedList* pArrayListEmployee)
         }
 
         fclose(pFile);
-        return ok;
+        return OK;
     }
     else
     {
@@ -68,33 +68,33 @@ int parser_EmployeeFromText(FILE* pFile, LinkedList* pArrayListEmployee)
  */
 int parser_EmployeeFromBinary(FILE* pFile, LinkedList* pArrayListEmployee)
 {
-    int ret;
+   int ret;
     ret = ERROR;
 
-    if( pFile != NULL)
+    if(pFile != NULL)
     {
-        while (feof(pFile))
+        while(!feof(pFile))
         {
-            ret= fread(emp,sizeof(Employee),1,pFile);
-            if(ret != 1)
-            {
-                printf("Error al cargar los datos");
 
-            }
-            else
-            {
-                ll_add(pArrayListEmployee,emp);
-            }
-
+                Employee* emp = employee_new();
+                ret = fread(emp, sizeof(Employee),1,pFile);
+                if(ret != 1)
+                {
+                    printf("Error al caargar datos\n");
+                }
+                else
+                {
+                    ll_add(pArrayListEmployee, emp);
+                }
         }
-        fclose(pFile);
-        ret=OK;
-        else
-        {
-            printf("Archivo sin datos");
-            system("pause");
-        }
-
-
-        return ret;
+    fclose(pFile);
+    ret = OK;
     }
+    else
+    {
+        printf("No hay datos");
+        system("pause");
+    }
+
+    return ret;
+}
